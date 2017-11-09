@@ -1,0 +1,31 @@
+import { encode, decode } from './base64'
+
+it('Base64 encoding', () => {
+  expect(decode('U2VuZCByZWluZm9yY2VtZW50cw==\n')).to.deep.equal(str2arr('Send reinforcements'))
+  expect(decode('U2VuZCByZWluZm9yY2VtZW50cw==\n')).to.deep.equal(str2arr('Send reinforcements'))
+  expect(decode('Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4g\nUnVieQ==\n')).to.deep.equal(str2arr('Now is the time for all good coders\nto learn Ruby'))
+  expect(decode('VGhpcyBpcyBsaW5lIG9uZQpUaGlzIGlzIGxpbmUgdHdvClRoaXMgaXMgbGluZSB0aHJlZQpBbmQgc28gb24uLi4K')).to.deep.equal(str2arr('This is line one\nThis is line two\nThis is line three\nAnd so on...\n'))
+  expect(decode('')).to.deep.equal(str2arr(''))
+  expect(decode('AA==')).to.deep.equal(str2arr('\0'))
+  expect(decode('AAA=')).to.deep.equal(str2arr('\0\0'))
+  expect(decode('AAAA')).to.deep.equal(str2arr('\0\0\0'))
+})
+
+it('Base64 decoding', () => {
+  expect(encode(str2arr('Send reinforcements'))).to.deep.equal('U2VuZCByZWluZm9yY2VtZW50cw==')
+  expect(encode(str2arr('Now is the time for all good coders\nto learn Ruby'))).to.deep.equal('Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4gUnVieQ==')
+  expect(encode(str2arr('This is line one\nThis is line two\nThis is line three\nAnd so on...\n'))).to.deep.equal('VGhpcyBpcyBsaW5lIG9uZQpUaGlzIGlzIGxpbmUgdHdvClRoaXMgaXMgbGluZSB0aHJlZQpBbmQgc28gb24uLi4K')
+  expect(encode(str2arr(''))).to.deep.equal('')
+  expect(encode(str2arr('\0'))).to.deep.equal('AA==')
+  expect(encode(str2arr('\0\0'))).to.deep.equal('AAA=')
+  expect(encode(str2arr('\0\0\0'))).to.deep.equal('AAAA')
+})
+
+function str2arr (str) {
+  var buf = new ArrayBuffer(str.length)
+  var bufView = new Uint8Array(buf)
+  for (var i = 0, strLen = str.length; i < strLen; i++) {
+    bufView[i] = str.charCodeAt(i)
+  }
+  return bufView
+}
