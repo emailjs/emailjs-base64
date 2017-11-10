@@ -1,6 +1,6 @@
 {
   "name": "emailjs-base64",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/emailjs/emailjs-base64",
   "description": "Safe Base64 de/encoding to and from byte arrays",
   "author": "Felix Hammerl <felix.hammerl@gmail.com>",
@@ -9,7 +9,8 @@
   ],
   "license": "MIT",
   "scripts": {
-    "lint": "$(npm bin)/standard",
+    "build": "./scripts/build.sh",
+    "lint": "$(npm bin)/standard ",
     "test": "npm run lint && npm run unit",
     "unit": "$(npm bin)/mocha './src/*-unit.js' --reporter spec --require babel-register testutils.js",
     "test-watch": "$(npm bin)/mocha './src/*-unit.js' --reporter spec --require babel-register testutils.js --watch"
@@ -18,8 +19,9 @@
     "type": "git",
     "url": "git://github.com/emailjs/emailjs-base64.git"
   },
-  "main": "./src/base64",
+  "main": "./dist/base64",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
@@ -37,6 +39,9 @@
       "afterAll",
       "after",
       "expect"
+    ],
+    "ignore": [
+      "dist"
     ]
   }
 }
