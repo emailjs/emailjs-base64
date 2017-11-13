@@ -1,4 +1,10 @@
-export default function (base64Str) {
+export const OUTPUT_STRING = 'OUTPUT_STRING'
+export const OUTPUT_TYPED_ARRAY = 'OUTPUT_TYPED_ARRAY'
+
+export default (base64Str, outputEncoding = OUTPUT_STRING) =>
+  outputEncoding === OUTPUT_STRING ? decode(base64Str) : String.fromCharCode.apply(null, decode(base64Str))
+
+function decode (base64Str) {
   let iOut = 0
   const arr = new Uint8Array(Math.ceil(base64Str.length * 3 / 4))
 

@@ -11,24 +11,33 @@ function encodeChunk (uint8, start, end) {
   return output
 }
 
-export default function (uint8) {
-  const len = uint8.length
+function str2arr (str) {
+  const buf = new ArrayBuffer(str.length)
+  const bufView = new Uint8Array(buf)
+  for (var i = 0, strLen = str.length; i < strLen; i++) {
+    bufView[i] = str.charCodeAt(i)
+  }
+  return bufView
+}
+
+function encode (data) {
+  const len = data.length
   const extraBytes = len % 3 // if we have 1 byte left, pad 2 bytes
   let output = ''
 
   // go through the array every three bytes, we'll deal with trailing stuff later
   for (let i = 0, len2 = len - extraBytes; i < len2; i += MAX_CHUNK_LENGTH) {
-    output += encodeChunk(uint8, i, (i + MAX_CHUNK_LENGTH) > len2 ? len2 : (i + MAX_CHUNK_LENGTH))
+    output += encodeChunk(data, i, (i + MAX_CHUNK_LENGTH) > len2 ? len2 : (i + MAX_CHUNK_LENGTH))
   }
 
   // pad the end with zeros, but make sure to not forget the extra bytes
   if (extraBytes === 1) {
-    const tmp = uint8[len - 1]
+    const tmp = data[len - 1]
     output += LOOKUP[tmp >> 2]
     output += LOOKUP[(tmp << 4) & 0x3F]
     output += '=='
   } else if (extraBytes === 2) {
-    const tmp = (uint8[len - 2] << 8) + (uint8[len - 1])
+    const tmp = (data[len - 2] << 8) + (data[len - 1])
     output += LOOKUP[tmp >> 10]
     output += LOOKUP[(tmp >> 4) & 0x3F]
     output += LOOKUP[(tmp << 2) & 0x3F]
@@ -37,3 +46,5 @@ export default function (uint8) {
 
   return output
 }
+
+export default data => typeof data === 'string' ? encode(str2arr(unescape(encodeURIComponent(data)))) : encode(data)
