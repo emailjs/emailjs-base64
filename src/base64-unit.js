@@ -1,18 +1,27 @@
 import { encode, decode, OUTPUT_TYPED_ARRAY } from './base64'
 
+it('should asd', () => {
+  const foo = 'föäßå´®˜πœø©ˆ˜v'
+  expect(decode(encode(foo))).to.equal(foo)
+})
 it('Base64 encoding', () => {
-  expect(decode('U2VuZCByZWluZm9yY2VtZW50cw==', OUTPUT_TYPED_ARRAY)).to.deep.equal('Send reinforcements')
-  expect(decode('Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4g\nUnVieQ==', OUTPUT_TYPED_ARRAY)).to.deep.equal('Now is the time for all good coders\nto learn Ruby')
-  expect(decode('VGhpcyBpcyBsaW5lIG9uZQpUaGlzIGlzIGxpbmUgdHdvClRoaXMgaXMgbGluZSB0aHJlZQpBbmQgc28gb24uLi4K', OUTPUT_TYPED_ARRAY)).to.deep.equal('This is line one\nThis is line two\nThis is line three\nAnd so on...\n')
+  expect(decode('U2VuZCByZWluZm9yY2VtZW50cw==', OUTPUT_TYPED_ARRAY)).to.deep.equal(str2arr('Send reinforcements'))
+  expect(decode('Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4g\nUnVieQ==', OUTPUT_TYPED_ARRAY)).to.deep.equal(str2arr('Now is the time for all good coders\nto learn Ruby'))
+  expect(decode('VGhpcyBpcyBsaW5lIG9uZQpUaGlzIGlzIGxpbmUgdHdvClRoaXMgaXMgbGluZSB0aHJlZQpBbmQgc28gb24uLi4K', OUTPUT_TYPED_ARRAY)).to.deep.equal(str2arr('This is line one\nThis is line two\nThis is line three\nAnd so on...\n'))
 
-  expect(decode('U2VuZCByZWluZm9yY2VtZW50cw==')).to.deep.equal(str2arr('Send reinforcements'))
-  expect(decode('Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4g\nUnVieQ==')).to.deep.equal(str2arr('Now is the time for all good coders\nto learn Ruby'))
-  expect(decode('VGhpcyBpcyBsaW5lIG9uZQpUaGlzIGlzIGxpbmUgdHdvClRoaXMgaXMgbGluZSB0aHJlZQpBbmQgc28gb24uLi4K')).to.deep.equal(str2arr('This is line one\nThis is line two\nThis is line three\nAnd so on...\n'))
+  expect(decode('U2VuZCByZWluZm9yY2VtZW50cw==')).to.deep.equal('Send reinforcements')
+  expect(decode('Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4g\nUnVieQ==')).to.deep.equal('Now is the time for all good coders\nto learn Ruby')
+  expect(decode('VGhpcyBpcyBsaW5lIG9uZQpUaGlzIGlzIGxpbmUgdHdvClRoaXMgaXMgbGluZSB0aHJlZQpBbmQgc28gb24uLi4K')).to.deep.equal('This is line one\nThis is line two\nThis is line three\nAnd so on...\n')
 
-  expect(decode('')).to.deep.equal(str2arr(''))
-  expect(decode('AA==')).to.deep.equal(str2arr('\0'))
-  expect(decode('AAA=')).to.deep.equal(str2arr('\0\0'))
-  expect(decode('AAAA')).to.deep.equal(str2arr('\0\0\0'))
+  expect(decode('')).to.deep.equal('')
+  expect(decode('AA==')).to.deep.equal('\0')
+  expect(decode('AAA=')).to.deep.equal('\0\0')
+  expect(decode('AAAA')).to.deep.equal('\0\0\0')
+
+  expect(decode('', OUTPUT_TYPED_ARRAY)).to.deep.equal(str2arr(''))
+  expect(decode('AA==', OUTPUT_TYPED_ARRAY)).to.deep.equal(str2arr('\0'))
+  expect(decode('AAA=', OUTPUT_TYPED_ARRAY)).to.deep.equal(str2arr('\0\0'))
+  expect(decode('AAAA', OUTPUT_TYPED_ARRAY)).to.deep.equal(str2arr('\0\0\0'))
 })
 
 it('Base64 decoding', () => {

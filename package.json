@@ -1,6 +1,6 @@
 {
   "name": "emailjs-base64",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "homepage": "https://github.com/emailjs/emailjs-base64",
   "description": "Safe Base64 de/encoding to and from strings and typed arrays",
   "author": "Felix Hammerl <felix.hammerl@gmail.com>",
