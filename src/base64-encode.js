@@ -11,14 +11,7 @@ function encodeChunk (uint8, start, end) {
   return output
 }
 
-function str2arr (str) {
-  const buf = new ArrayBuffer(str.length)
-  const bufView = new Uint8Array(buf)
-  for (var i = 0, strLen = str.length; i < strLen; i++) {
-    bufView[i] = str.charCodeAt(i)
-  }
-  return bufView
-}
+const str2arr = str => new Uint8Array(str.split('').map(char => char.charCodeAt(0)))
 
 function encode (data) {
   const len = data.length

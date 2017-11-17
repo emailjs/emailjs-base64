@@ -1,8 +1,10 @@
 export const OUTPUT_STRING = 'OUTPUT_STRING'
 export const OUTPUT_TYPED_ARRAY = 'OUTPUT_TYPED_ARRAY'
 
+const arr2str = arr => String.fromCharCode.apply(null, arr)
+
 export default (base64Str, outputEncoding = OUTPUT_STRING) =>
-  (outputEncoding === OUTPUT_STRING) ? decodeURIComponent(escape(String.fromCharCode.apply(null, decode(base64Str)))) : decode(base64Str)
+  (outputEncoding === OUTPUT_STRING) ? decodeURIComponent(escape(arr2str(decode(base64Str)))) : decode(base64Str)
 
 function decode (base64Str) {
   let iOut = 0

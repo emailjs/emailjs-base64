@@ -1,9 +1,5 @@
 import { encode, decode, OUTPUT_TYPED_ARRAY } from './base64'
 
-it('should asd', () => {
-  const foo = 'föäßå´®˜πœø©ˆ˜v'
-  expect(decode(encode(foo))).to.equal(foo)
-})
 it('Base64 encoding', () => {
   expect(decode('U2VuZCByZWluZm9yY2VtZW50cw==', OUTPUT_TYPED_ARRAY)).to.deep.equal(str2arr('Send reinforcements'))
   expect(decode('Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4g\nUnVieQ==', OUTPUT_TYPED_ARRAY)).to.deep.equal(str2arr('Now is the time for all good coders\nto learn Ruby'))
