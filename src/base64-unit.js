@@ -18,9 +18,13 @@ it('Base64 encoding', () => {
   expect(decode('AA==', OUTPUT_TYPED_ARRAY)).to.deep.equal(str2arr('\0'))
   expect(decode('AAA=', OUTPUT_TYPED_ARRAY)).to.deep.equal(str2arr('\0\0'))
   expect(decode('AAAA', OUTPUT_TYPED_ARRAY)).to.deep.equal(str2arr('\0\0\0'))
+
+  expect(() => {
+    decode('4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSBCuacrOODoeODvOODq+OBr+OAgeODnuOCpOODiuOD')
+  }).to.not.throw()
 })
 
-it('Base64 decoding', () => {
+it('Base64 encoding', () => {
   expect(encode('Send reinforcements')).to.deep.equal('U2VuZCByZWluZm9yY2VtZW50cw==')
   expect(encode('Now is the time for all good coders\nto learn Ruby')).to.deep.equal('Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4gUnVieQ==')
   expect(encode('This is line one\nThis is line two\nThis is line three\nAnd so on...\n')).to.deep.equal('VGhpcyBpcyBsaW5lIG9uZQpUaGlzIGlzIGxpbmUgdHdvClRoaXMgaXMgbGluZSB0aHJlZQpBbmQgc28gb24uLi4K')
@@ -33,10 +37,6 @@ it('Base64 decoding', () => {
   expect(encode(str2arr('\0'))).to.deep.equal('AA==')
   expect(encode(str2arr('\0\0'))).to.deep.equal('AAA=')
   expect(encode(str2arr('\0\0\0'))).to.deep.equal('AAAA')
-
-  expect(() => {
-    decode('4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSBCuacrOODoeODvOODq+OBr+OAgeODnuOCpOODiuOD')
-  }).to.not.throw()
 })
 
 function str2arr (str) {
