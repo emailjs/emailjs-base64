@@ -33,6 +33,10 @@ it('Base64 decoding', () => {
   expect(encode(str2arr('\0'))).to.deep.equal('AA==')
   expect(encode(str2arr('\0\0'))).to.deep.equal('AAA=')
   expect(encode(str2arr('\0\0\0'))).to.deep.equal('AAAA')
+
+  expect(() => {
+    decode('4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSBCuacrOODoeODvOODq+OBr+OAgeODnuOCpOODiuOD')
+  }).to.not.throw()
 })
 
 function str2arr (str) {
