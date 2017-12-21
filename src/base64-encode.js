@@ -40,4 +40,4 @@ function encode (data) {
   return output
 }
 
-export default data => typeof data === 'string' ? encode(str2arr(unescape(encodeURIComponent(data)))) : encode(data)
+export default data => typeof data === 'string' ? encode(str2arr(data)) : encode(data)

@@ -1,6 +1,6 @@
 import { encode, decode, OUTPUT_TYPED_ARRAY } from './base64'
 
-it('Base64 encoding', () => {
+it('Base64 decoding', () => {
   expect(decode('U2VuZCByZWluZm9yY2VtZW50cw==', OUTPUT_TYPED_ARRAY)).to.deep.equal(str2arr('Send reinforcements'))
   expect(decode('Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4g\nUnVieQ==', OUTPUT_TYPED_ARRAY)).to.deep.equal(str2arr('Now is the time for all good coders\nto learn Ruby'))
   expect(decode('VGhpcyBpcyBsaW5lIG9uZQpUaGlzIGlzIGxpbmUgdHdvClRoaXMgaXMgbGluZSB0aHJlZQpBbmQgc28gb24uLi4K', OUTPUT_TYPED_ARRAY)).to.deep.equal(str2arr('This is line one\nThis is line two\nThis is line three\nAnd so on...\n'))
@@ -25,9 +25,10 @@ it('Base64 encoding', () => {
 })
 
 it('Base64 encoding', () => {
-  expect(encode('Send reinforcements')).to.deep.equal('U2VuZCByZWluZm9yY2VtZW50cw==')
-  expect(encode('Now is the time for all good coders\nto learn Ruby')).to.deep.equal('Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4gUnVieQ==')
-  expect(encode('This is line one\nThis is line two\nThis is line three\nAnd so on...\n')).to.deep.equal('VGhpcyBpcyBsaW5lIG9uZQpUaGlzIGlzIGxpbmUgdHdvClRoaXMgaXMgbGluZSB0aHJlZQpBbmQgc28gb24uLi4K')
+  expect(encode(unescape(encodeURIComponent('本メールは、マイナ')))).to.deep.equal('5pys44Oh44O844Or44Gv44CB44Oe44Kk44OK')
+  expect(encode(unescape(encodeURIComponent('Send reinforcements')))).to.deep.equal('U2VuZCByZWluZm9yY2VtZW50cw==')
+  expect(encode(unescape(encodeURIComponent('Now is the time for all good coders\nto learn Ruby')))).to.deep.equal('Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4gUnVieQ==')
+  expect(encode(unescape(encodeURIComponent('This is line one\nThis is line two\nThis is line three\nAnd so on...\n')))).to.deep.equal('VGhpcyBpcyBsaW5lIG9uZQpUaGlzIGlzIGxpbmUgdHdvClRoaXMgaXMgbGluZSB0aHJlZQpBbmQgc28gb24uLi4K')
 
   expect(encode(str2arr('Send reinforcements'))).to.deep.equal('U2VuZCByZWluZm9yY2VtZW50cw==')
   expect(encode(str2arr('Now is the time for all good coders\nto learn Ruby'))).to.deep.equal('Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4gUnVieQ==')
