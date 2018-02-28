@@ -40,6 +40,21 @@ it('Base64 encoding', () => {
   expect(encode(str2arr('\0\0\0'))).to.deep.equal('AAAA')
 })
 
+it('should encode yuris test case correctly', () => {
+  const text = 'MIIB3AYJKoZIhvcNAQcDoIIBzTCCAckCAQIxggFuMIIBagIBADAjMB4xHDAJBgNVBAYTAlJVMA8G\n' +
+    'A1UEAx4IAFQAZQBzAHQCAQEwPAYJKoZIhvcNAQEHMC+gDzANBglghkgBZQMEAgMFAKEcMBoGCSqG\n' +
+    'SIb3DQEBCDANBglghkgBZQMEAgMFAASCAQBDyepahKyM+hceeF7J+pyiSVYLElKyFKff9flMs1VX\n' +
+    'ZaBQRcEYpIqw9agD4u+aHlIOJ6AtdCbxaV0M8q6gjM4E5lUFUOqG/QIycdG2asZ0lza/DL8SdxfA\n' +
+    '3WE9Ij5IEqFbtnykbfORK+5XWT0nYs/OMN0NKeCwXjElNsezX9IAIgxHgwcVYW+szXpRlarjriAC\n' +
+    'TDG/M+Xl5YtyAhmHWFncBSfWM8e2q+AKh3eCal1lH4eXtGICc4rad4f6845YJwXL8DYYS+GdLVAY\n' +
+    'EXKuHr0N7g4aHTs9B8EQqHmYdaHWTi3h0ZPkvAE+wwfm9xjvL2z2HrfpYyMTvALrefvSt7sGMIAG\n' +
+    'CSqGSIb3DQEHATAdBglghkgBZQMEAQIEEKt6VqFcNz/VYFwu85DTOqGggAQgIHc45LBiYIQqhxNw\n' +
+    'hlRk4BxMiyiQRdLcVdCwwkKyX2sAAAAA\n'
+  const expectedText = Buffer.from(text, 'base64').toString('hex').toUpperCase()
+  const actualText = Buffer.from(decode(text, OUTPUT_TYPED_ARRAY)).toString('hex').toUpperCase()
+  expect(actualText).to.equal(expectedText)
+})
+
 function str2arr (str) {
   var buf = new ArrayBuffer(str.length)
   var bufView = new Uint8Array(buf)
