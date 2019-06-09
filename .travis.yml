@@ -1,9 +1,19 @@
 language: node_js
 sudo: false
 node_js:
-  - lts/*
+- lts/*
 notifications:
   email:
     recipients:
-      - felix.hammerl@gmail.com
-      - andris.reinman@gmail.com
+    - felix.hammerl@gmail.com
+script:
+- npm test
+deploy:
+  provider: npm
+  email: felix.hammerl+emailjs-deployment-user@gmail.com
+  api_key:
+    secure: thagmd9tknEzf8wh7HcoZ3UtBQw/cSPAMxoW/hBqVEN2ZSzjb4IB75qWoRGuM34jO+EW9IDU0vcwLwsEY9ozuvEkqgRprHiSDXyH8jGgVbXpCaexzy2SyMUUUwRDwXDPKU/1vLyrJzQuP0x47L/sfUIgKalPH7l3R4fNFL2y52DVQPKi3smb/tzRGVFJNgs8crONE/MKjDcAkjwWEmpHyHizGBoOKLrev3yj4NEo+AWX7S38BXKjuwB8tC6sjz87ttvKPtlyzEg2rCUQmady71iNKPX2aZPXfJxjPGaMKUb34SkVkzr/eBhAxMB4qk/60UT3APekKwyTzrql0kgOXqspNvU2t8fJkxG/hM3Ye7HYesvUZHxDWpMQuNkXsUmRT8RObDWGMk5MEPnhQi2Y17ex04t+Nw8FqGjMksRVT9Ci5oXZl+fqk3vc2YQRFHIH6yeGDoVpXxvRiLAnoIf+v36LEstAYf5Tve1UQCvzbgFPRDZIQxo3Hqr4s0fRfOFFALa272DrEez2W5/6bOUqFJoFEdjc38sNtSPktqZ8hCdd/UrtYINaOKtox3Zrz+Fy8fTm+pB1ccKe+XozNiFU3IBzAbEPzF0TxSS8uHJvnzhlypsApZDAQBDXxTaBseghZ/Ib9XsaYNBk1GefMYZPUgOJRZtQRk9iuLr+DZscnMQ=
+  on:
+    tags: true
+    all_branches: true
+    condition: "$TRAVIS_TAG =~ ^v[0-9]+\\.[0-9]+\\.[0-9]+"
